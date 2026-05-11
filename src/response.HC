@@ -51,7 +51,7 @@ U8 NotFoundResponse(I32 fd)
     return 0;
 }
 
-// OK 200 - Bindary File
+// OK 200 - Binary File
 U8 FileResponse(I32 fd, U8 *path, U8 *content_type)
 {
     I64 size;
