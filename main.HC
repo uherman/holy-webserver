@@ -91,7 +91,6 @@ U8 Main()
         }
         "requested path: %s\n", path;
 
-        //send(client, Route(path), StrLen(RESP), 0);
         Route(client, path);
         close(client);
     }
