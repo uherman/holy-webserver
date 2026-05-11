@@ -37,6 +37,8 @@ Here are some of the next steps for the project:
 - [x] Add route for favicon ✝
 - [ ] Add better abstractions for the routing and for responses.
 - [ ] Improve routing so that it routes to actual files, if i want this? the way it works now is kind of nice.
+- [ ] Add HealthChecks
+- [ ] Graceful shutdown?
 - [ ] Implement POST requests
 - [ ] Add some fun HTML/CSS/JS content
 - [ ] Add WebSockets for some fun reason
