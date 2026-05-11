@@ -1,22 +1,3 @@
-U8 *RESP =
-    "HTTP/1.1 200 ok\r\n"
-    "Content-Type: text/plain\r\n"
-    "Content-Length: 13\r\n"
-    "Connection: close\r\n"
-    "\r\n"
-    "Hello, Holy!\n";
-
-
-U8 *RESP_404 =
-    "HTTP/1.1 404 ok\r\n"
-    "Content-Type: text/plain\r\n"
-    "Content-Length: 9\r\n"
-    "Connection: close\r\n"
-    "\r\n"
-    "Not Found\n";
-
-
-
 class Response 
 {
     I32 StatusCode;
