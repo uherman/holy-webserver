@@ -1,4 +1,4 @@
-#include "./response.HC"
+#include "src/response.HC"
 
 I64 ParsePath(U8 *req, U8 *out, I64 out_cap)
 {
@@ -18,7 +18,7 @@ I64 ParsePath(U8 *req, U8 *out, I64 out_cap)
 U8 *Route(I32 fd, U8 *path)
 {
     if (!StrCmp(path, "/")) OkResponse(fd, "✝ Hello Holy! ✝");
-    else if (!StrCmp(path, "/html")) FileResponse(fd, "index.html", "text/html; charset=utf-8;");
+    else if (!StrCmp(path, "/html")) FileResponse(fd, "static/index.html", "text/html; charset=utf-8;");
     else NotFoundResponse(fd);
 
     return 0;
