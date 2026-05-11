@@ -1,51 +1,4 @@
-class Response 
-{
-    I32 StatusCode;
-    U8 *StatusText;
-    U8 *ContentType;
-    U8 *Body;
-    I64 BodyLen;
-};
-
-I64 WriteResponse(I32 fd, Response *r)
-{
-    U8 head[512];
-    I64 n = snprintf(head, sizeof(head),
-        "HTTP/1.1 %d %s\r\n"
-        "Content-Type: %s\r\n"
-        "Content-Lenght: %d\r\n"
-        "Connection: close\r\n\r\n",
-        r->StatusCode, r->StatusText, r->ContentType, r->BodyLen);
-        send(fd, head, n, 0);
-        return send(fd, r->Body, r->BodyLen, 0);
-}
-
-U8 OkResponse(I32 fd, U8 *body)
-{
-    Response ok;
-    ok.StatusCode = 200;
-    ok.StatusText = "OK";
-    ok.ContentType = "text/plain; charset=utf-8";
-    ok.Body = MStrPrint("%s\n", body);
-    ok.BodyLen = StrLen(ok.Body);
-    WriteResponse(fd, &ok);
-    Free(ok.Body);
-
-    return 0;
-}
-
-U8 NotFoundResponse(I32 fd)
-{
-    Response notFound;
-    notFound.StatusCode = 404;
-    notFound.StatusText = "Not Found";
-    notFound.ContentType = "text/plain; charset=utf-8";
-    notFound.Body = "Not Found ✝\n";
-    notFound.BodyLen = StrLen(notFound.Body);
-    WriteResponse(fd, &notFound);
-
-    return 0;
-}
+#include "./response.HC"
 
 I64 ParsePath(U8 *req, U8 *out, I64 out_cap)
 {
@@ -65,6 +18,7 @@ I64 ParsePath(U8 *req, U8 *out, I64 out_cap)
 U8 *Route(I32 fd, U8 *path)
 {
     if (!StrCmp(path, "/")) OkResponse(fd, "✝ Hello Holy! ✝");
+    else if (!StrCmp(path, "/html")) FileResponse(fd, "index.html", "text/html; charset=utf-8;");
     else NotFoundResponse(fd);
 
     return 0;
@@ -96,5 +50,3 @@ U8 Main()
     }
     return 0;
 }
-
-
