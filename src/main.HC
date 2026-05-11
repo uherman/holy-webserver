@@ -1,28 +1,5 @@
-#include "src/response.HC"
-
-I64 ParsePath(U8 *req, U8 *out, I64 out_cap)
-{
-    U8 *p = req;
-    while (*p && *p != ' ') p++;
-    if(!*p) return -1;
-    p++;
-    U8 *start = p;
-    while (*p && *p != ' ' && *p != '?' && *p != '\r' && *p != '\n') p++;
-    I64 len = p - start;
-    if (len >= out_cap) len = out_cap - 1;
-    MemCpy(out, start, len);
-    out[len] = '\0';
-    return len;
-}
-
-U8 *Route(I32 fd, U8 *path)
-{
-    if (!StrCmp(path, "/")) OkResponse(fd, "✝ Hello Holy! ✝");
-    else if (!StrCmp(path, "/html")) FileResponse(fd, "static/index.html", "text/html; charset=utf-8;");
-    else NotFoundResponse(fd);
-
-    return 0;
-}
+#include "src/router.HC"
+#include "src/helpers.HC"
 
 U8 Main()
 {

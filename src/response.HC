@@ -1,4 +1,3 @@
-
 // Response object used to standardize responses.
 class Response 
 {
