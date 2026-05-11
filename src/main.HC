@@ -5,7 +5,8 @@ U8 Main()
 {
     I32 server = NetCreateServer(8080, "*", 16, AF_INET);
     if (server < 0) { "bind failed\n"; return 1; }
-    "listening on :8080\n";
+    Log("listening on :8080");
+    fflush(NULL);
 
     while (TRUE) {
         I32 client = NetAccept(server);
@@ -20,8 +21,7 @@ U8 Main()
             buf[n] = '\0';
             ParsePath(buf, path, sizeof(path));
         }
-        "requested path: %s\n", path;
-
+        Log("requested path: %s", path);
         Route(client, path);
         close(client);
     }
