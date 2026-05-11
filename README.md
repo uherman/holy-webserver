@@ -2,6 +2,8 @@
 
 This is just a fun project where i write a WebServer using [HolyC](https://holyc-lang.com/).
 
+The webserver is hosted at [holy.null.care](https://holy.null.care/html)
+
 
 ## Build & Run
 
@@ -30,10 +32,13 @@ Now you can go to `localhost:8080` to see the server running.
 
 Here are some of the next steps for the project:
 
-- Find a way to host this on arm64 - Thinking QEMU, just have to figure out how to use it in k3s.
-- Implement a HTML module to render HTML to the browser.
-- Add abstractions for the routing and for responses.
-
+- [x] Find a way to host this on arm64 - Thinking QEMU, just have to figure out how to use it in k3s.
+- [x] Implement a HTML module to render HTML to the browser.
+- [ ] Add better abstractions for the routing and for responses.
+- [ ] Improve routing so that it routes to actual files, if i want this? the way it works now is kind of nice.
+- [ ] Implement POST requests
+- [ ] Add some fun HTML/CSS/JS content
+- [ ] Add WebSockets for some fun reason
 <br/>
 <br/>
 
