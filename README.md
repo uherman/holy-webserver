@@ -2,7 +2,7 @@
 
 This is just a fun project where i write a WebServer using [HolyC](https://holyc-lang.com/).
 
-The webserver is hosted at [holy.null.care](https://holy.null.care/html)
+The webserver is hosted at [holy.null.care](https://holy.null.care)
 
 
 ## Build & Run
