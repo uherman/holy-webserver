@@ -6,7 +6,7 @@
 U0 _HomeHandler(I32 fd) { FileResponse(fd, "static/pages/index.html", "text/html; charset=utf-8;"); }
 U0 _FaviconHandler(I32 fd) { FileResponse(fd, "static/favicon.png", "image/png"); }
 U0 _HealthCheckHandler(I32 fd) { OkResponse(fd, "Healthy"); }
-U0 _BibleHandler(I32 fd) { FileResponse(fd, "static/bible/index.html", "text/html; charset=utf-8;"); }
+U0 _BibleHandler(I32 fd) { FileResponse(fd, "static/pages/bible/index.html", "text/html; charset=utf-8;"); }
 U0 _DownloadBibleHandler(I32 fd) { FileDownloadResponse(fd, "static/bible.txt", "text/plain", "the_holy_bible.txt"); }
 U0 _BibleBookHandler(I32 fd, U8 *path) 
 { 
