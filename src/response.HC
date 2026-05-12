@@ -1,4 +1,4 @@
-#include "src/helpers.HC"
+#include "src/logger.HC"
 
 // Response object used to standardize responses.
 class Response 
@@ -59,7 +59,7 @@ U8 FileResponse(I32 fd, U8 *path, U8 *content_type)
     I64 size;
     U8 *contents = ReadAll(path, &size);
     if (!contents) {
-        Log("The requested file '%s' was not found.\n", path);
+        LogWarn("The requested file '%s' was not found.\n", path);
         NotFoundResponse(fd);
         return 1;
     }

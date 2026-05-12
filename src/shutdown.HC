@@ -1,14 +1,14 @@
 extern "c" U0 signal(I32 signum, U0 (*handler)(I32));
 extern "c" U0 exit(I32 code);
 
-#include "src/helpers.HC"
+#include "src/logger.HC"
 
 #define SIGINT 2
 #define SIGTERM 15
 
 U0 OnShutdown(I32 sig) 
 {
-    Log("shutting down (signal %d)", sig);
+    LogInfo("shutting down (signal %d)", sig);
     exit(0);
 }
 

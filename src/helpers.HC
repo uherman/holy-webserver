@@ -1,5 +1,3 @@
-extern "c" I32 fflush(U0 *stream);
-
 // Help function for parsing request paths
 I64 ParsePath(U8 *req, U8 *out, I64 out_cap)
 {
@@ -35,14 +33,6 @@ U8 *ReadAll(U8 *path, I64 *out_size)
   buf[len] = '\0';
   if (out_size) *out_size = len;
   return buf;
-}
-
-// Help function for logging
-U0 Log(U8 *fmt, ...) {
-    U8 *s = StrPrintJoin(NULL, fmt, argc, argv);
-    "%s\n", s;
-    fflush(NULL);
-    Free(s);
 }
 
 // Help function to match routes

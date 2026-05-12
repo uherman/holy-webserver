@@ -1,5 +1,6 @@
 #include "src/helpers.HC"
 #include "src/response.HC"
+#include "src/logger.HC"
 
 // Routes
 U0 _HomeHandler(I32 fd) { OkResponse(fd, "✝ Hello Holy! ✝"); }
@@ -14,7 +15,10 @@ U8 *Route(I32 fd, U8 *path)
     else if (MatchRoute(path, "/html")) _HtmlHandler(fd);
     else if (MatchRoute(path, "/favicon.ico")) _FaviconHandler(fd);
     else if (MatchRoute(path, "/health")) _HealthCheckHandler(fd);
-    else NotFoundResponse(fd);
+    else {
+        LogWarn("Path '%s' not found", path);
+        NotFoundResponse(fd);
+    }
 
     return 0;
 }

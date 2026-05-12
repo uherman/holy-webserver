@@ -1,13 +1,14 @@
 #include "src/router.HC"
 #include "src/helpers.HC"
 #include "src/shutdown.HC"
+#include "src/logger.HC"
 
 U8 Main()
 {
     InitShutdownHandler;
     I32 server = NetCreateServer(8080, "*", 16, AF_INET);
     if (server < 0) { "bind failed\n"; return 1; }
-    Log("listening on :8080");
+    LogInfo("listening on :8080");
 
     while (TRUE) {
         I32 client = NetAccept(server);
@@ -24,7 +25,7 @@ U8 Main()
         }
 
         if (!MatchRoute(path, "/health")) {
-            Log("requested path: %s", path);
+            LogInfo("requested path: %s", path);
         }
 
         Route(client, path);
