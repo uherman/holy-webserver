@@ -6,6 +6,7 @@ class Response
     I32 StatusCode;
     U8 *StatusText;
     U8 *ContentType;
+    U8 *Disposition;
     U8 *Body;
     I64 BodyLen;
 };
@@ -14,12 +15,19 @@ class Response
 I64 WriteResponse(I32 fd, Response *r)
 {
     U8 head[512];
+    U8 *disp_line = "";
+    U8 disp_buf[256];
+    if(r->Disposition) {
+        snprintf(disp_buf, sizeof(disp_buf), "Content-Disposition: %s\r\n", r->Disposition);
+        disp_line = disp_buf;
+    }
     I64 n = snprintf(head, sizeof(head),
         "HTTP/1.1 %d %s\r\n"
         "Content-Type: %s\r\n"
         "Content-Lenght: %d\r\n"
+        "%s"
         "Connection: close\r\n\r\n",
-        r->StatusCode, r->StatusText, r->ContentType, r->BodyLen);
+        r->StatusCode, r->StatusText, r->ContentType, r->BodyLen, disp_line);
         send(fd, head, n, 0);
         return send(fd, r->Body, r->BodyLen, 0);
 }
@@ -86,4 +94,26 @@ U8 HtmlResponse(I32 fd, U8 *body)
     html.Body = body;
     html.BodyLen = StrLen(html.Body);
     WriteResponse(fd, &html);
+}
+
+// OK 200 - Download file
+U8 FileDownloadResponse(I32 fd, U8 *path, U8 *content_type, U8 *filename)
+{
+    I64 size;
+    U8 *contents = ReadAll(path, &size);
+    if (!contents) { NotFoundResponse(fd); return 1; }
+
+    U8 disp[256];
+    snprintf(disp, sizeof(disp), "attatchment; filename=\"%s\"", filename);
+
+    Response download;
+    download.StatusCode = 200;
+    download.StatusText = "OK";
+    download.ContentType = content_type;
+    download.Disposition = disp;
+    download.Body = contents;
+    download.BodyLen = size;
+    WriteResponse(fd, &download);
+    Free(contents);
+    return 0;
 }

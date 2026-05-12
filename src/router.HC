@@ -8,6 +8,7 @@ U0 _HtmlHandler(I32 fd) { FileResponse(fd, "static/pages/html.html", "text/html;
 U0 _FaviconHandler(I32 fd) { FileResponse(fd, "static/favicon.png", "image/png"); }
 U0 _HealthCheckHandler(I32 fd) { OkResponse(fd, "Healthy"); }
 U0 _BibleHandler(I32 fd) { FileResponse(fd, "static/bible/index.html", "text/html; charset=utf-8;"); }
+U0 _DownloadBibleHandler(I32 fd) { FileDownloadResponse(fd, "static/bible.txt", "text/plain", "the_holy_bible.txt"); }
 U0 _BibleBookHandler(I32 fd, U8 *path) 
 { 
     U8 *slug = path + 7; // skip "/bible/"
@@ -36,6 +37,7 @@ U8 *Route(I32 fd, U8 *path)
     else if (MatchRoute(path, "/favicon.ico")) _FaviconHandler(fd);
     else if (MatchRoute(path, "/health")) _HealthCheckHandler(fd);
     else if (MatchRoute(path, "/bible")) _BibleHandler(fd);
+    else if (MatchRoute(path, "/downloads/bible.txt")) _DownloadBibleHandler(fd);
     else if (StartsWith(path, "/bible/")) _BibleBookHandler(fd, path);
     else if (StartsWith(path, "/css/")) _CssHandler(fd, path);
     else {
