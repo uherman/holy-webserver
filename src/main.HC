@@ -1,8 +1,10 @@
 #include "src/router.HC"
 #include "src/helpers.HC"
+#include "src/shutdown.HC"
 
 U8 Main()
 {
+    InitShutdownHandler;
     I32 server = NetCreateServer(8080, "*", 16, AF_INET);
     if (server < 0) { "bind failed\n"; return 1; }
     Log("listening on :8080");
