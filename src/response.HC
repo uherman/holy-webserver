@@ -36,6 +36,7 @@ I64 WriteResponse(I32 fd, Response *r)
 U8 OkResponse(I32 fd, U8 *body)
 {
     Response ok;
+    MemSet(&ok, 0, sizeof(ok));
     ok.StatusCode = 200;
     ok.StatusText = "OK";
     ok.ContentType = "text/plain; charset=utf-8";
@@ -51,6 +52,7 @@ U8 OkResponse(I32 fd, U8 *body)
 U8 NotFoundResponse(I32 fd)
 {
     Response not_found;
+    MemSet(&not_found, 0, sizeof(not_found));
     not_found.StatusCode = 404;
     not_found.StatusText = "Not Found";
     not_found.ContentType = "text/plain; charset=utf-8";
@@ -73,6 +75,7 @@ U8 FileResponse(I32 fd, U8 *path, U8 *content_type)
     }
 
     Response file;
+    MemSet(&file, 0, sizeof(file));
     file.StatusCode = 200;
     file.StatusText = "OK";
     file.ContentType = content_type;
@@ -88,6 +91,7 @@ U8 FileResponse(I32 fd, U8 *path, U8 *content_type)
 U8 HtmlResponse(I32 fd, U8 *body)
 {
     Response html;
+    MemSet(&html, 0, sizeof(html));
     html.StatusCode = 200;
     html.StatusText = "OK";
     html.ContentType = "text/html; charset=utf-8";
@@ -107,6 +111,7 @@ U8 FileDownloadResponse(I32 fd, U8 *path, U8 *content_type, U8 *filename)
     snprintf(disp, sizeof(disp), "attatchment; filename=\"%s\"", filename);
 
     Response download;
+    MemSet(&download, 0, sizeof(download));
     download.StatusCode = 200;
     download.StatusText = "OK";
     download.ContentType = content_type;
