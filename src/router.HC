@@ -3,8 +3,9 @@
 #include "src/logger.HC"
 
 // Routes
-U0 _HomeHandler(I32 fd) { OkResponse(fd, "✝ Hello Holy! ✝"); }
-U0 _HtmlHandler(I32 fd) { FileResponse(fd, "static/index.html", "text/html; charset=utf-8;"); }
+// U0 _HomeHandler(I32 fd) { OkResponse(fd, "✝ Hello Holy! ✝"); }
+U0 _HomeHandler(I32 fd) { FileResponse(fd, "static/pages/index.html", "text/html; charset=utf-8;"); }
+U0 _HtmlHandler(I32 fd) { FileResponse(fd, "static/pages/html.html", "text/html; charset=utf-8;"); }
 U0 _FaviconHandler(I32 fd) { FileResponse(fd, "static/favicon.png", "image/png"); }
 U0 _HealthCheckHandler(I32 fd) { OkResponse(fd, "Healthy"); }
 U0 _BibleHandler(I32 fd) { FileResponse(fd, "static/bible/index.html", "text/html; charset=utf-8;"); }
