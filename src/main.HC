@@ -20,7 +20,11 @@ U8 Main()
             buf[n] = '\0';
             ParsePath(buf, path, sizeof(path));
         }
-        Log("requested path: %s", path);
+
+        if (!MatchRoute(path, "/health")) {
+            Log("requested path: %s", path);
+        }
+
         Route(client, path);
         close(client);
     }

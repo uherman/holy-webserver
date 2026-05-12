@@ -44,3 +44,6 @@ U0 Log(U8 *fmt, ...) {
     fflush(NULL);
     Free(s);
 }
+
+// Help function to match routes
+I64 MatchRoute(U8 *path, U8 *route) { return !StrCmp(path, route); }
