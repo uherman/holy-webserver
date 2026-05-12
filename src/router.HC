@@ -3,7 +3,6 @@
 #include "src/logger.HC"
 
 // Routes
-// U0 _HomeHandler(I32 fd) { OkResponse(fd, "✝ Hello Holy! ✝"); }
 U0 _HomeHandler(I32 fd) { FileResponse(fd, "static/pages/index.html", "text/html; charset=utf-8;"); }
 U0 _HtmlHandler(I32 fd) { FileResponse(fd, "static/pages/html.html", "text/html; charset=utf-8;"); }
 U0 _FaviconHandler(I32 fd) { FileResponse(fd, "static/favicon.png", "image/png"); }
@@ -19,6 +18,16 @@ U0 _BibleBookHandler(I32 fd, U8 *path)
     FileResponse(fd, file, "text/plain; charset=utf-8;");
 }
 
+U0 _CssHandler(I32 fd, U8 *path)
+{
+    U8 *slug = path + 5; // skip "/css/"
+    if(!IsSafeFileName(slug)) { NotFoundResponse(fd); return; }
+
+    U8 file[256];
+    snprintf(file, sizeof(file), "static/css/%s", slug);
+    FileResponse(fd, file, "text/css; charset=utf-8;");
+}
+
 // Route function that routes the traffic based on the request path
 U8 *Route(I32 fd, U8 *path)
 {
@@ -28,6 +37,7 @@ U8 *Route(I32 fd, U8 *path)
     else if (MatchRoute(path, "/health")) _HealthCheckHandler(fd);
     else if (MatchRoute(path, "/bible")) _BibleHandler(fd);
     else if (StartsWith(path, "/bible/")) _BibleBookHandler(fd, path);
+    else if (StartsWith(path, "/css/")) _CssHandler(fd, path);
     else {
         LogWarn("Path '%s' not found", path);
         NotFoundResponse(fd);
